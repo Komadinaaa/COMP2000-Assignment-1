@@ -124,15 +124,9 @@ public class grid {
 
         if (VegetationTimer >= VegetationGrowthTime) {
 
-<<<<<<< HEAD
             double x = Math.random() * 790 + 5;
 
             double y = Math.random() * 590 + 5;
-=======
-            double x = Math.random() * 800;
-
-            double y = Math.random() * 600;
->>>>>>> refs/remotes/origin/main
 
             newVegetation(x, y);
 

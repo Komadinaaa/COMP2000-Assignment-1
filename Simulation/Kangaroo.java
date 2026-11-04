@@ -8,38 +8,21 @@ public class Kangaroo extends Animal {
         setBackground(new Color(150, 118, 108));
     }
 
-    public void wander(grid a) {
-        flee(a);
-        super.wander(a);
-        update();
-        ageAnimal();
-        hungry();
+    @Override
+    protected void preMove(grid g) {
+        flee(g);
+    }
 
-        breed(a);
-
-        // to wander costs energy - more efficient than dingos.
+    @Override
+    protected void consumeEnergy() {
         if (energy > 0) {
             energy -= 10;
         }
-        // Kangaroo dies of exhaustion if energy <= 0
-        if (energy <= 0) {
-            a.death(this);
-            System.out.println("Kangaroo died of exhaustion");
-        }
-        // Kangaroo dies of old age if age > maxAge
-        if (age > maxAge) {
-            a.death(this);
-            System.out.println("Kangaroo died of old age");
-        }
-        // Kangaroo dies of hunger if hunger <=0
-        if (hunger <= 0) {
-            System.out.println("Kangaroo died of hunger");
-        }
-        // Kangaroo forages for food if hunger < maxHunger
-        if (hunger < maxHunger) {
-            forage(a);
-        }
+    }
 
+    @Override
+    protected void seekFood(grid g) {
+        forage(g);
     }
 
     public void flee(grid g) {

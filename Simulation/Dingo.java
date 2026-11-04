@@ -8,37 +8,19 @@ public class Dingo extends Animal {
         setBackground(new Color(240, 126, 38));
     }
 
-    public void wander(grid g) {
-        super.wander(g);
-        update();
-        ageAnimal();
-        hungry();
-
-        breed(g);
-        // to wander costs energy
+    @Override
+    protected void consumeEnergy() {
         if (energy > 0) {
             energy -= 35;
         }
-        // dingo dies of exhaustion if energy < 0.
-        if (energy <= 0) {
-            g.death(this);
-            System.out.println("Dingo died of exhaustion");
-        }
-        // dingo dies of old age if age > maxAge
-        if (age > maxAge) {
-            g.death(this);
-            System.out.println("Dingo died of old age");
-        }
-        // Dingo dies of hunger if hunger <= 0;
-        if (hunger <= 0) {
-            g.death(this);
-            System.out.println("Dingo died of hunger");
-        }
-        // if hunger < maxHunger Dingo hunts for food
-        if (hunger < maxHunger) {
-            hunt(g);
-        }
     }
+
+    @Override
+    protected void seekFood(grid g) {
+        hunt(g);
+    }
+
+
 
     public void hunt(grid g) {
         // if Dingo is within sensoryDistance of kangaroo, hunt is successful, kangaroo

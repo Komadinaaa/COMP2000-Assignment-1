@@ -2,7 +2,7 @@ package Simulation;
 
 import java.awt.*;
 
-public class Animal extends Panel {
+public abstract class Animal extends Panel {
 
     double moveX;
     double moveY;
@@ -30,7 +30,7 @@ public class Animal extends Panel {
 
     double breedEnergy = 70;
     int breedAge = 30;
-    long breedCooldown = 10000;
+    long breedCooldown = 8000;
     long lastBreedTime = 0;
 
     int plantFoodValue = 10;
@@ -48,13 +48,6 @@ public class Animal extends Panel {
         x = initX;
         y = initY;
 
-        // Set initial speed - random speed between 0 and maxSpeed
-        moveY = Math.random() * speed;
-
-        // Make the total speed equal to 2
-        moveX = Math.random() * speed;
-        // Math.sqrt(4 - Math.pow(moveY, 2));
-
         changeDirection();
     }
 
@@ -66,12 +59,68 @@ public class Animal extends Panel {
             rest(a);
             return;
         }
+        preMove(a);
+
         a.checkBounds(this);
 
         x += moveX;
         y += moveY;
 
         setBounds((int) x, (int) y, Animal_Size, Animal_Size);
+
+        update();
+        ageAnimal();
+        hungry();
+        breed(a);
+
+        // Hooks for species-specific behavior
+        consumeEnergy();
+        checkDeath(a);
+
+        // If still alive and hungry, seek food
+        if (isAlive()) {
+            handleFeeding(a);
+        }
+    }
+
+        // Hooks with default implementations
+    protected void preMove(grid g) {
+        // Default: do nothing
+    }
+
+
+    protected abstract void consumeEnergy();
+
+    protected void handleFeeding(grid g) {
+        if (hunger < maxHunger) {
+            seekFood(g);
+        }
+    }
+        protected void seekFood(grid g) {
+        // Default: nothing
+    }
+
+    protected void checkDeath(grid g) {
+        if (energy <= 0) {
+            g.death(this);
+            System.out.println(this.getClass().getSimpleName() + " died of exhaustion");
+            return;
+        }
+        if (age > maxAge) {
+            g.death(this);
+            System.out.println(this.getClass().getSimpleName() + " died of old age");
+            return;
+        }
+        if (hunger <= 0) {
+            g.death(this);
+            System.out.println(this.getClass().getSimpleName() + " died of hunger");
+            return;
+        }
+    }
+
+    protected boolean isAlive() {
+        // Simple check - grid.death removes from containers, but useful as a guard
+        return energy > 0 && age <= maxAge && hunger > 0;
     }
 
     public double dist(Animal A, Animal B) {
