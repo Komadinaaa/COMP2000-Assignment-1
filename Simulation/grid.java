@@ -37,33 +37,15 @@ public class grid {
 
 
     public void newDingo(double x, double y) {
-
-        // create new dingo
-
-        Dingo d = new Dingo();
-
-        d.create(x, y);
-
+        Animal d = AnimalFactory.create(AnimalFactory.AnimalType.DINGO, x, y);
         this.f.add(d);
-
         this.animals.add(d);
-
     }
 
-
-
     public void newKangaroo(double x, double y) {
-
-        // create new kangaroo
-
-        Kangaroo k = new Kangaroo();
-
-        k.create(x, y);
-
+        Animal k = AnimalFactory.create(AnimalFactory.AnimalType.KANGAROO, x, y);
         this.f.add(k);
-
         this.animals.add(k);
-
     }
 
 
