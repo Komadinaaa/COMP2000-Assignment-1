@@ -18,6 +18,21 @@ public class Simulation {
 
         grid g = new grid();
         g.set(animals, vegetation, f);
+        g.addListener(new AnimalListener() {
+            @Override
+            public void onAnimalBorn(Animal a) {
+                System.out.println("New " + a.getClass().getSimpleName());
+            }
+
+            @Override
+            public void onAnimalDied(Animal a, String cause) {
+                if ("eaten".equals(cause)) {
+                    System.out.println(a.getClass().getSimpleName() + " was eaten");
+                } else {
+                    System.out.println(a.getClass().getSimpleName() + " died of " + cause);
+                }
+            }
+        });
 
         for (int i = 0; i < 300; i++) {
             double x = (int) (Math.random() * 800);

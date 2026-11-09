@@ -23,7 +23,6 @@ public class Dingo extends Animal {
     @Override
     protected void reproduce(grid g) {
         g.newDingo(x, y);
-        System.out.println("New Dingo");
     }
 
     @Override
@@ -52,8 +51,7 @@ public class Dingo extends Animal {
                 if (dist(this, other) < SensoryDistance) {
                     eat();
                     System.out.println("Hunt Successful");
-                    System.out.println("Kangaroo was eaten");
-                    g.death(other);
+                    g.death(other, "eaten");
                     break;
                 }
             }

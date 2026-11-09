@@ -110,18 +110,15 @@ public abstract class Animal extends Panel {
 
     protected void checkDeath(grid g) {
         if (energy <= 0) {
-            g.death(this);
-            System.out.println(this.getClass().getSimpleName() + " died of exhaustion");
+            g.death(this, "exhaustion");
             return;
         }
         if (age > maxAge) {
-            g.death(this);
-            System.out.println(this.getClass().getSimpleName() + " died of old age");
+            g.death(this, "old age");
             return;
         }
         if (hunger <= 0) {
-            g.death(this);
-            System.out.println(this.getClass().getSimpleName() + " died of hunger");
+            g.death(this, "hunger");
             return;
         }
     }

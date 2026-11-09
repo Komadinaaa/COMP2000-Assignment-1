@@ -28,7 +28,6 @@ public class Kangaroo extends Animal {
     @Override
     protected void reproduce(grid g) {
         g.newKangaroo(x, y);
-        System.out.println("New Kangaroo");
     }
 
     @Override
