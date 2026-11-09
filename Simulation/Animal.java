@@ -91,6 +91,14 @@ public abstract class Animal extends Panel {
 
     protected abstract void consumeEnergy();
 
+    protected abstract void reproduce(grid g);
+
+    protected abstract boolean isPrey();
+
+    protected abstract boolean isPredator();
+
+    protected abstract int getFoodValue();
+
     protected void handleFeeding(grid g) {
         if (hunger < maxHunger) {
             seekFood(g);
@@ -160,8 +168,6 @@ public abstract class Animal extends Panel {
         }
     }
 
-    protected abstract void reproduce(grid g);
-
     public boolean canBreed() {
         // checks breeding eligibility
         long currentTime = System.currentTimeMillis();
@@ -180,14 +186,7 @@ public abstract class Animal extends Panel {
     }
 
     public void eat() {
-        // if kangaroo eats: hunger = hunger + food value from plants
-        if (this instanceof Kangaroo) {
-            hunger += plantFoodValue;
-        }
-        // if dingo eats: hunger = hunger + food value from kangaroos.
-        if (this instanceof Dingo) {
-            hunger += kangarooFoodValue;
-        }
+        hunger = Math.min(maxHunger, hunger + getFoodValue());
     }
 
     public void changeDirection() {

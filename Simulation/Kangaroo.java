@@ -31,13 +31,29 @@ public class Kangaroo extends Animal {
         System.out.println("New Kangaroo");
     }
 
+    @Override
+    protected boolean isPrey() {
+        return true;
+    }
+
+    @Override
+    protected boolean isPredator() {
+        return false;
+    }
+
+    @Override
+    protected int getFoodValue() {
+        return plantFoodValue;
+    }
+
     public void flee(grid g) {
         // if kangaroo is within sensoryDistance of a dingo it changes directions to
         // flee.
         Container<Animal> animals = g.animals;
         for (int i = animals.size() - 1; i >= 0; i--) {
-            if (animals.get(i) instanceof Dingo) {
-                if (super.dist(this, animals.get(i)) < SensoryDistance) {
+            Animal other = animals.get(i);
+            if (other.isPredator()) {
+                if (dist(this, other) < SensoryDistance) {
                     changeDirection();
                     break;
                 }
