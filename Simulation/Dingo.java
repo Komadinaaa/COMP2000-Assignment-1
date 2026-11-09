@@ -20,6 +20,12 @@ public class Dingo extends Animal {
         hunt(g);
     }
 
+    @Override
+    protected void reproduce(grid g) {
+        g.newDingo(x, y);
+        System.out.println("New Dingo");
+    }
+
 
 
     public void hunt(grid g) {

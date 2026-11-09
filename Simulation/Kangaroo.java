@@ -25,6 +25,12 @@ public class Kangaroo extends Animal {
         forage(g);
     }
 
+    @Override
+    protected void reproduce(grid g) {
+        g.newKangaroo(x, y);
+        System.out.println("New Kangaroo");
+    }
+
     public void flee(grid g) {
         // if kangaroo is within sensoryDistance of a dingo it changes directions to
         // flee.
