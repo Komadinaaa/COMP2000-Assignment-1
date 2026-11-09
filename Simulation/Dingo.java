@@ -20,11 +20,7 @@ public class Dingo extends Animal {
         hunt(g);
     }
 
-    @Override
-    protected void reproduce(grid g) {
-        g.newDingo(x, y);
-        System.out.println("New Dingo");
-    }
+
 
     public void hunt(grid g) {
         // if Dingo is within sensoryDistance of kangaroo, hunt is successful, kangaroo
@@ -32,14 +28,14 @@ public class Dingo extends Animal {
         // Dingo eats, gaining hunger points from KangarooFoodValue.
         Container<Animal> animals = g.animals;
         for (int i = animals.size() - 1; i >= 0; i--) {
-            Animal other = animals.get(i);
-            if (other instanceof Kangaroo) {
-                if (dist(this, other) < SensoryDistance) {
+            if (animals.get(i) instanceof Kangaroo) {
+                if (super.dist(this, animals.get(i)) < SensoryDistance) {
                     eat();
                     System.out.println("Hunt Successful");
                     System.out.println("Kangaroo was eaten");
-                    g.death(other);
+                    g.death(animals.get(i));
                     break;
+
                 }
             }
         }

@@ -150,17 +150,26 @@ public abstract class Animal extends Panel {
         return update;
     }
 
-    public final void breed(grid g) {
+    public void breed(grid g) {
+        // if eligible kangaroo, create new kangaroo
+        // if eligible dingo, create new dingo
+
         if (canBreed()) {
-            reproduce(g);
+
+            if (this instanceof Kangaroo) {
+                g.newKangaroo(x, y);
+                System.out.println("New Kangaroo");
+            }
+            if (this instanceof Dingo) {
+                g.newDingo(x, y);
+                System.out.println("New Dingo");
+            }
             // breeding costs 20 points of energy
             energy -= 20;
             // takes current time when breeding occurs.
             lastBreedTime = System.currentTimeMillis();
         }
     }
-
-    protected abstract void reproduce(grid g);
 
     public boolean canBreed() {
         // checks breeding eligibility
