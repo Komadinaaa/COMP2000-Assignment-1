@@ -43,15 +43,11 @@ public class grid {
     }
 
     private void fireAnimalBorn(Animal a) {
-        for (AnimalListener l : listeners) {
-            l.onAnimalBorn(a);
-        }
+        listeners.forEach(l -> l.onAnimalBorn(a));
     }
 
     private void fireAnimalDied(Animal a, String cause) {
-        for (AnimalListener l : listeners) {
-            l.onAnimalDied(a, cause);
-        }
+        listeners.forEach(l -> l.onAnimalDied(a, cause));
     }
 
     public void newDingo(double x, double y) {

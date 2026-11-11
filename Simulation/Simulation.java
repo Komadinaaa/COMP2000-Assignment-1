@@ -2,6 +2,7 @@ package Simulation;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.stream.IntStream;
 
 public class Simulation {
     public static void main(String[] args) {
@@ -58,21 +59,21 @@ public class Simulation {
             }
         });
 
-        for (int i = 0; i < 300; i++) {
+        IntStream.range(0, 300).forEach(i -> {
             double x = (int) (Math.random() * 800);
             double y = (int) (Math.random() * 600);
             g.newVegetation(x, y);
-        }
-        for (int i = 0; i < 2; i++) {
+        });
+        IntStream.range(0, 2).forEach(i -> {
             double x = (int) (Math.random() * 750) + 25;
             double y = (int) (Math.random() * 550) + 25;
             g.newDingo(x, y);
-        }
-        for (int i = 0; i < 10; i++) {
+        });
+        IntStream.range(0, 10).forEach(i -> {
             double x = (int) (Math.random() * 750) + 25;
             double y = (int) (Math.random() * 550) + 25;
             g.newKangaroo(x, y);
-        }
+        });
 
         Timer timer = new Timer(30, e -> {
             try {
