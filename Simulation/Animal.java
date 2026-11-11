@@ -52,9 +52,6 @@ public abstract class Animal extends Panel {
     }
 
     public void wander(grid a) {
-        // animal wanders around, direction determined in create
-
-        // if energy < restEnergy, forces animal to rest to regain energy.
         if (energy <= restEnergy) {
             rest(a);
             return;
@@ -73,11 +70,11 @@ public abstract class Animal extends Panel {
         hungry();
         breed(a);
 
-        // Hooks for species-specific behavior
+        // Hooks
         consumeEnergy();
         checkDeath(a);
 
-        // If still alive and hungry, seek food
+       
         if (isAlive()) {
             handleFeeding(a);
         }
@@ -85,9 +82,7 @@ public abstract class Animal extends Panel {
 
         // Hooks with default implementations
     protected void preMove(grid g) {
-        // Default: do nothing
     }
-
 
     protected abstract void consumeEnergy();
 
@@ -105,7 +100,6 @@ public abstract class Animal extends Panel {
         }
     }
         protected void seekFood(grid g) {
-        // Default: nothing
     }
 
     protected void checkDeath(grid g) {
@@ -124,12 +118,10 @@ public abstract class Animal extends Panel {
     }
 
     protected boolean isAlive() {
-        // Simple check - grid.death removes from containers, but useful as a guard
         return energy > 0 && age <= maxAge && hunger > 0;
     }
 
     public double dist(Animal A, Animal B) {
-        // returns distance between animals A and B.
         double dx = B.x - A.x;
         double dy = B.y - A.y;
 
@@ -137,20 +129,17 @@ public abstract class Animal extends Panel {
     }
 
     public void rest(grid a) {
-        // if energy <= maxEnergy animal rests to restore energy.
         if (energy <= maxEnergy) {
             energy = maxEnergy;
         }
     }
 
     public int ageAnimal() {
-        // Ages animal by 1 when called.
         age += 1;
         return age;
     }
 
     public int update() {
-        // update by 1 every call
         update += 1;
         return update;
     }
@@ -158,18 +147,13 @@ public abstract class Animal extends Panel {
     public final void breed(grid g) {
         if (canBreed()) {
             reproduce(g);
-            // breeding costs 20 points of energy
             energy -= 20;
-            // takes current time when breeding occurs.
             lastBreedTime = System.currentTimeMillis();
         }
     }
 
     public boolean canBreed() {
-        // checks breeding eligibility
         long currentTime = System.currentTimeMillis();
-        // if age > minimum breeding, energy > minimum energy requirement
-        // Hunger > 30 and after breed cooldown, CanBreed = true
         return age >= breedAge &&
                 energy >= breedEnergy &&
                 currentTime - lastBreedTime >= breedCooldown &&
@@ -178,7 +162,6 @@ public abstract class Animal extends Panel {
     }
 
     public void hungry() {
-        // hunger reduced when 1 when called.
         hunger -= 1;
     }
 
@@ -187,9 +170,7 @@ public abstract class Animal extends Panel {
     }
 
     public void changeDirection() {
-        // Four different directions, if math.random returns a 1 or a 2, moveX is
-        // negated
-        // if math.random returns 2 or 4, moveY is negated
+        
         moveX = Math.random() * speed;
         moveY = Math.random() * speed;
         int direction = (int) Math.ceil(Math.random() * 4);

@@ -65,22 +65,18 @@ public class Kangaroo extends Animal {
                 .ifPresent(plant -> {
                     eat();
                     g.eaten(plant);
-                    System.out.println("Forage Successful");
                 });
     }
 
-    public void moveAwayFrom(Animal other) {
-        // Get the vector pointing away from the other object
+    public void moveAwayFrom(Animal other) { //move in the opposite direction of the dino
         double dx = this.x - other.x;
         double dy = this.y - other.y;
 
         double distance = Math.hypot(dx, dy);
 
-        // Normalize the direction vector (length of 1)
         double dirX = dx / distance;
         double dirY = dy / distance;
 
-        // Update this object's velocity to reflect the new trajectory
         this.moveX = dirX * this.speed;
         this.moveY = dirY * this.speed;
     }

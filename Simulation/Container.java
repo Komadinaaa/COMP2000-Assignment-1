@@ -32,4 +32,9 @@ public class Container<T> {
         items.forEach(action);
     }
 
+    public void addAll(Container<T> other) {
+        items.addAll(other.items);
+    }
+
+
 }
