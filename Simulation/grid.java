@@ -80,10 +80,10 @@ public class grid {
     }
 
     public void checkBounds (Animal a) {
-        if (a.x + a.Animal_Size >= f.getWidth() || a.x < 1) {
+        if (a.x + a.Animal_Size + 3>= f.getWidth() || a.x < 3) {
             a.moveX *= -1;
         }
-        if (a.y + 2 * a.Animal_Size >= f.getHeight() || a.y < 1) {
+        if (a.y + 2 * a.Animal_Size + 3>= f.getHeight() || a.y < 3) {
             a.moveY *= -1;
         }
     }

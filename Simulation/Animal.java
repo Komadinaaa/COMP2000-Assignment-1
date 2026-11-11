@@ -24,13 +24,13 @@ public abstract class Animal extends Panel {
 
     int age;
 
-    int maxAge = 200;
+    int maxAge;
     int update;
     int SensoryDistance = 30;
 
     double breedEnergy = 70;
     int breedAge = 30;
-    long breedCooldown = 8000;
+    long breedCooldown;
     long lastBreedTime = 0;
 
     int plantFoodValue = 10;

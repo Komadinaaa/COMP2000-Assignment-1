@@ -5,6 +5,8 @@ import java.awt.Color;
 public class Dingo extends Animal {
 
     public Dingo() {
+        maxAge = 300;
+        breedCooldown = 13000;
         setBackground(new Color(240, 126, 38));
     }
 

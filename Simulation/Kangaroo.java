@@ -5,6 +5,8 @@ import java.awt.*;
 public class Kangaroo extends Animal {
 
     public Kangaroo() {
+        maxAge = 200;
+        breedCooldown = 6000;
         setBackground(new Color(150, 118, 108));
     }
 

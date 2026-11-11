@@ -18,19 +18,45 @@ public class Simulation {
 
         grid g = new grid();
         g.set(animals, vegetation, f);
+
+        JLabel statsLabel = new JLabel();
+        statsLabel.setBounds(10, 5, 300, 20);
+        statsLabel.setForeground(Color.WHITE);
+        statsLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
+        f.add(statsLabel);
+
         g.addListener(new AnimalListener() {
+            private int dingos = 0;
+            private int kangaroos = 0;
+
+            private void update() {
+                statsLabel.setText("Dingos: " + dingos + " | Kangaroos: " + kangaroos);
+            }
+
             @Override
             public void onAnimalBorn(Animal a) {
+                if (a instanceof Dingo) {
+                    dingos++;
+                } else if (a instanceof Kangaroo) {
+                    kangaroos++;
+                }
                 System.out.println("New " + a.getClass().getSimpleName());
+                update();
             }
 
             @Override
             public void onAnimalDied(Animal a, String cause) {
+                if (a instanceof Dingo) {
+                    dingos--;
+                } else if (a instanceof Kangaroo) {
+                    kangaroos--;
+                }
                 if ("eaten".equals(cause)) {
                     System.out.println(a.getClass().getSimpleName() + " was eaten");
                 } else {
                     System.out.println(a.getClass().getSimpleName() + " died of " + cause);
                 }
+                update();
             }
         });
 
