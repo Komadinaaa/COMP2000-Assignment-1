@@ -55,34 +55,32 @@ public class Kangaroo extends Animal {
     }
 
     public void forage(grid g) {
-        for (int i = g.vegetation.size() - 1; i >= 0; i--) {
-            Vegetation plant = g.vegetation.get(i);
-            double Dist = Math.sqrt(Math.pow(plant.x - x, 2) + Math.pow(plant.y - y, 2));
-            // if Kangaroo is within forage distance of a plant, the plant is eaten and the
-            // kangaroo gains hunger points from plantFoodValue.
-            if (Dist < forageDist) {
-                eat();
-                g.eaten(plant);
-                // System.out.println("Forage Successful");
-
-                break;
-            }
-        }
-
+        g.vegetation.stream()
+                .filter(plant -> {
+                    double dx = plant.x - x;
+                    double dy = plant.y - y;
+                    return Math.sqrt(dx * dx + dy * dy) < forageDist;
+                })
+                .findFirst()
+                .ifPresent(plant -> {
+                    eat();
+                    g.eaten(plant);
+                    System.out.println("Forage Successful");
+                });
     }
-    public void moveAwayFrom(Animal other) {
-        // 1. Get the vector pointing away from the other object
 
+    public void moveAwayFrom(Animal other) {
+        // Get the vector pointing away from the other object
         double dx = this.x - other.x;
         double dy = this.y - other.y;
-        
+
         double distance = Math.hypot(dx, dy);
 
-        // 2. Normalize the direction vector (length of 1)
+        // Normalize the direction vector (length of 1)
         double dirX = dx / distance;
         double dirY = dy / distance;
 
-        // Optional: Update this object's vx and vy to reflect the new trajectory
+        // Update this object's velocity to reflect the new trajectory
         this.moveX = dirX * this.speed;
         this.moveY = dirY * this.speed;
     }

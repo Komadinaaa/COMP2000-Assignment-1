@@ -76,11 +76,25 @@ public class grid {
     }
 
     public void checkBounds (Animal a) {
-        if (a.x + a.Animal_Size + 3>= f.getWidth() || a.x < 3) {
-            a.moveX *= -1;
+        int maxX = f.getWidth() - a.Animal_Size;
+        int maxY = f.getHeight() - a.Animal_Size*2;
+
+        if (a.x < 0) {
+            a.x = 0;
+            a.moveX = Math.abs(a.moveX);
+        } 
+        else if (a.x > maxX) {
+            a.x = maxX;
+            a.moveX = -Math.abs(a.moveX);
         }
-        if (a.y + 2 * a.Animal_Size + 3>= f.getHeight() || a.y < 3) {
-            a.moveY *= -1;
+
+        if (a.y < 0) {
+            a.y = 0;
+            a.moveY = Math.abs(a.moveY);
+        } 
+        else if (a.y > maxY) {
+            a.y = maxY;
+            a.moveY = -Math.abs(a.moveY);
         }
     }
 
