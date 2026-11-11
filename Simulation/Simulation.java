@@ -2,8 +2,6 @@ package Simulation;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Simulation {
     public static void main(String[] args) {
@@ -76,21 +74,18 @@ public class Simulation {
             g.newKangaroo(x, y);
         }
 
-        Timer timer = new Timer(30, new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    int i = animals.size();
-                    while (i > 0) {
-                        i--;
-                        
-                        animals.get(i).wander(g);
-                    }
-                    g.growVegetation();
-                    f.repaint();
-                } catch (IndexOutOfBoundsException ex) {
-                    System.out.println(ex);
-                    System.out.println(animals.size());
+        Timer timer = new Timer(30, e -> {
+            try {
+                int i = animals.size();
+                while (i > 0) {
+                    i--;
+                    animals.get(i).wander(g);
                 }
+                g.growVegetation();
+                f.repaint();
+            } catch (IndexOutOfBoundsException ex) {
+                System.out.println(ex);
+                System.out.println(animals.size());
             }
         });
 
