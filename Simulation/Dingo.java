@@ -48,11 +48,24 @@ public class Dingo extends Animal {
         for (int i = animals.size() - 1; i >= 0; i--) {
             Animal other = animals.get(i);
             if (other.isPrey()) {
-                if (dist(this, other) < SensoryDistance) {
-                    eat();
-                    System.out.println("Hunt Successful");
-                    g.death(other, "eaten");
-                    break;
+                if (this.energy < maxEnergy/3) {
+                    if (dist(this, other) < SensoryDistance) {
+                        eat();
+                        System.out.println("Hunt Successful");
+                        g.death(other, "eaten");
+                        this.x = other.x;
+                        this.y = other.y;
+                        break;
+                    }
+                }
+                else {
+                    if (dist(this, other) < 15) {
+                        eat();
+                        System.out.println("Hunt Successful" + this.energy);
+                        g.death(other, "eaten");
+                        
+                        break;
+                    }
                 }
             }
         }

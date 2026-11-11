@@ -14,7 +14,7 @@ public abstract class Animal extends Panel {
 
     double energy = 100;
     double restEnergy = 50;
-    double maxEnergy = 100;
+    double maxEnergy = 150;
 
     double hunger = 75;
     double maxHunger = 100;
@@ -26,7 +26,7 @@ public abstract class Animal extends Panel {
 
     int maxAge = 200;
     int update;
-    int SensoryDistance = 50;
+    int SensoryDistance = 30;
 
     double breedEnergy = 70;
     int breedAge = 30;
@@ -61,10 +61,10 @@ public abstract class Animal extends Panel {
         }
         preMove(a);
 
-        a.checkBounds(this);
 
         x += moveX;
         y += moveY;
+        a.checkBounds(this);
 
         setBounds((int) x, (int) y, Animal_Size, Animal_Size);
 

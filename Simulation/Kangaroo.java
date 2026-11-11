@@ -69,7 +69,7 @@ public class Kangaroo extends Animal {
             if (Dist < forageDist) {
                 eat();
                 g.eaten(plant);
-                System.out.println("Forage Successful");
+                // System.out.println("Forage Successful");
 
                 break;
             }
