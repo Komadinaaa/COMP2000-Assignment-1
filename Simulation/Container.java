@@ -2,6 +2,8 @@ package Simulation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 public class Container<T> {
     private List<T> items = new ArrayList<>();
@@ -20,6 +22,14 @@ public class Container<T> {
 
     public int size() {
         return items.size();
+    }
+
+    public Stream<T> stream() {
+        return items.stream();
+    }
+
+    public void forEach(Consumer<? super T> action) {
+        items.forEach(action);
     }
 
 }

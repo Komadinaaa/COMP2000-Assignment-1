@@ -43,33 +43,25 @@ public class Dingo extends Animal {
     }
 
     public void hunt(grid g) {
-        // if Dingo is within sensoryDistance of kangaroo, hunt is successful, kangaroo
-        // dies and
-        // Dingo eats, gaining hunger points from KangarooFoodValue.
-        Container<Animal> animals = g.animals;
-        for (int i = animals.size() - 1; i >= 0; i--) {
-            Animal other = animals.get(i);
-            if (other.isPrey()) {
-                if (this.energy < maxEnergy/3) {
-                    if (dist(this, other) < SensoryDistance) {
-                        eat();
-                        System.out.println("Hunt Successful");
-                        g.death(other, "eaten");
+        g.animals.stream()
+                .filter(other -> other.isPrey())
+                .filter(other -> {
+                    if (this.energy < maxEnergy / 3) {
+                        return dist(this, other) < SensoryDistance;
+                    } else {
+                        return dist(this, other) < 15;
+                    }
+                })
+                .findFirst()
+                .ifPresent(other -> {
+                    eat();
+                    if (this.energy < maxEnergy / 3) {
                         this.x = other.x;
                         this.y = other.y;
-                        break;
+                        this.changeDirection();
+                    } else {
                     }
-                }
-                else {
-                    if (dist(this, other) < 15) {
-                        eat();
-                        System.out.println("Hunt Successful" + this.energy);
-                        g.death(other, "eaten");
-                        
-                        break;
-                    }
-                }
-            }
-        }
+                    g.death(other, "eaten");
+                });
     }
 }

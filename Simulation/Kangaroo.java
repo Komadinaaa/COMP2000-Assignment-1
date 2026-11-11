@@ -48,18 +48,10 @@ public class Kangaroo extends Animal {
     }
 
     public void flee(grid g) {
-        // if kangaroo is within sensoryDistance of a dingo it changes directions to
-        // flee.
-        Container<Animal> animals = g.animals;
-        for (int i = animals.size() - 1; i >= 0; i--) {
-            Animal other = animals.get(i);
-            if (other.isPredator()) {
-                if (dist(this, other) < SensoryDistance) {
-                    changeDirection();
-                    break;
-                }
-            }
-        }
+        g.animals.stream()
+                .filter(other -> other.isPredator() && dist(this, other) < SensoryDistance)
+                .findFirst()
+                .ifPresent(other -> moveAwayFrom(other));
     }
 
     public void forage(grid g) {
@@ -77,5 +69,21 @@ public class Kangaroo extends Animal {
             }
         }
 
+    }
+    public void moveAwayFrom(Animal other) {
+        // 1. Get the vector pointing away from the other object
+
+        double dx = this.x - other.x;
+        double dy = this.y - other.y;
+        
+        double distance = Math.hypot(dx, dy);
+
+        // 2. Normalize the direction vector (length of 1)
+        double dirX = dx / distance;
+        double dirY = dy / distance;
+
+        // Optional: Update this object's vx and vy to reflect the new trajectory
+        this.moveX = dirX * this.speed;
+        this.moveY = dirY * this.speed;
     }
 }
